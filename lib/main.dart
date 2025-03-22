@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
       builder: (lightColorScheme, darkColorScheme) {
         return Consumer<SettingsProvider>(
           builder: (context, settingsProvider, _) {
-            debugPrint('Theme Mode: ${settingsProvider.themeMode}');
             return MaterialApp(
               title: 'Anime X Hub',
               theme: ThemeData(
@@ -43,7 +42,14 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: settingsProvider.themeMode,
-              home: const HomePage(title: 'Anime X Hub'),
+              home:
+                  settingsProvider.isLoading
+                      ? const Scaffold(
+                        body: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                      : const HomePage(title: 'Anime X Hub'),
             );
           },
         );

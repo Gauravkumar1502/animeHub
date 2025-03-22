@@ -13,6 +13,7 @@ class SettingsProvider extends ChangeNotifier {
   );
 
   late final Box<Settings> _settingsBoxFuture;
+  bool isLoading = true;
 
   Settings get settings => _settings;
   ThemeMode get themeMode => _settings.themeModeAsFlutterThemeMode;
@@ -30,7 +31,10 @@ class SettingsProvider extends ChangeNotifier {
     debugPrint('Settings: ${_settings.rating}');
     debugPrint('Settings: ${_settings.tags}');
     debugPrint('Settings: ${_settings.themeMode}');
-    notifyListeners();
+    Future.delayed(const Duration(seconds: 1), () {
+      isLoading = false;
+      notifyListeners();
+    });
   }
 
   Future<void> setShouldRemember(bool shouldRemember) async {
