@@ -1,6 +1,7 @@
 import 'package:animexhub/hive_registrar.g.dart';
+import 'package:animexhub/providers/anipic_provider.dart';
 import 'package:animexhub/providers/settings_provider.dart';
-import 'package:animexhub/screens/home_page.dart';
+import 'package:animexhub/routes/go_router.dart';
 import 'package:animexhub/theme/theme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider(create: (_) => AnimePicsProvider()),
       ],
       child: const MyApp(),
     ),
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
       builder: (lightColorScheme, darkColorScheme) {
         return Consumer<SettingsProvider>(
           builder: (context, settingsProvider, _) {
-            return MaterialApp(
+            return MaterialApp.router(
+              routerConfig: MainRouter.router,
               title: 'Anime X Hub',
               theme: ThemeData(
                 colorScheme:
@@ -42,14 +45,6 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: settingsProvider.themeMode,
-              home:
-                  settingsProvider.isLoading
-                      ? const Scaffold(
-                        body: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                      : const HomePage(title: 'Anime X Hub'),
             );
           },
         );

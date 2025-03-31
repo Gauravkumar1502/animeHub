@@ -1,26 +1,22 @@
-import 'package:animexhub/models/settings.dart';
-import 'package:animexhub/providers/settings_provider.dart';
 import 'package:animexhub/widgets/custom_bottom_nav_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key, required this.isVisible});
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation({
+    super.key,
+    required this.isVisible,
+    required this.selectedIndex,
+    required this.onSwitch,
+  });
+  final int selectedIndex;
   final bool isVisible;
-
-  @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
-}
-
-class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
+  final void Function(int) onSwitch;
 
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = context.read<SettingsProvider>().themeMode.index;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      height: widget.isVisible ? kBottomNavigationBarHeight + 40 : 0,
+      height: isVisible ? kBottomNavigationBarHeight + 32 : 0,
       child: BottomAppBar(
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: Row(
@@ -28,53 +24,63 @@ class _BottomNavigationState extends State<BottomNavigation> {
           children: [
             CustomBottomNavIconButton(
               index: 0,
-              selectedIndex: _selectedIndex,
+              selectedIndex: selectedIndex,
               icon: Icons.home_outlined,
               selectedIcon: Icons.home_sharp,
               label: 'Home',
               onPressed: () {
-                setState(() {
-                  _selectedIndex = 0;
-                  context.read<SettingsProvider>().setThemeMode(
-                    Mode.values[_selectedIndex],
-                  );
-                });
+                onSwitch(0);
               },
             ),
             CustomBottomNavIconButton(
               index: 1,
-              selectedIndex: _selectedIndex,
+              selectedIndex: selectedIndex,
               icon: Icons.favorite_outline,
               selectedIcon: Icons.favorite_sharp,
               label: 'Favorites',
               onPressed: () {
-                setState(() {
-                  _selectedIndex = 1;
-                  context.read<SettingsProvider>().setThemeMode(
-                    Mode.values[_selectedIndex],
-                  );
-                });
+                onSwitch(1);
               },
             ),
             CustomBottomNavIconButton(
               index: 2,
-              selectedIndex: _selectedIndex,
+              selectedIndex: selectedIndex,
               icon: Icons.settings_outlined,
               selectedIcon: Icons.settings_sharp,
               label: 'Settings',
               iconSize: 40,
               onPressed: () {
-                setState(() {
-                  _selectedIndex = 2;
-                  context.read<SettingsProvider>().setThemeMode(
-                    Mode.values[_selectedIndex],
-                  );
-                });
+                onSwitch(2);
               },
             ),
           ],
         ),
       ),
     );
+
+    // NavigationBar
+    // return NavigationBar(
+    //   selectedIndex: selectedIndex,
+    //   destinations: [
+    //     NavigationDestination(
+    //       icon: const Icon(Icons.home_outlined),
+    //       selectedIcon: const Icon(Icons.home_sharp),
+    //       label: 'Home',
+    //     ),
+    //     NavigationDestination(
+    //       icon: const Icon(Icons.favorite_outline),
+    //       selectedIcon: const Icon(Icons.favorite_sharp),
+    //       label: 'Favorites',
+    //     ),
+    //     NavigationDestination(
+    //       icon: const Icon(Icons.settings_outlined),
+    //       selectedIcon: const Icon(Icons.settings_sharp),
+    //       label: 'Settings',
+    //     ),
+    //   ],
+    //   onDestinationSelected: (index) {
+    //     onSwitch(index);
+    //   },
+    // );
   }
 }

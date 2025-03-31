@@ -30,7 +30,7 @@ class AniPic {
   @HiveField(3)
   final List<String> tags;
 
-  AniPic({
+  const AniPic({
     required this.id,
     required this.url,
     required this.rating,

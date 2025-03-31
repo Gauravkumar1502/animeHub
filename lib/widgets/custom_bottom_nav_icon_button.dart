@@ -22,17 +22,46 @@ class CustomBottomNavIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = index == selectedIndex;
+
     return TextButton.icon(
       style: TextButton.styleFrom(
         backgroundColor:
-            index == selectedIndex
+            isSelected
                 ? Theme.of(context).colorScheme.onSecondary
                 : Colors.transparent,
       ),
-      label: index == selectedIndex ? Text(label) : const SizedBox(),
-      icon: Icon(
-        index == selectedIndex ? selectedIcon : icon,
-        size: 24,
+      icon: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) {
+          return ScaleTransition(scale: animation, child: child);
+        },
+        child: Icon(
+          isSelected ? selectedIcon : icon,
+          key: ValueKey(
+            isSelected ? selectedIcon : icon,
+          ), // Unique key to trigger animation
+          size: 24,
+        ),
+      ),
+      label: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SizeTransition(
+              sizeFactor: animation,
+              axis: Axis.horizontal,
+              child: child,
+            ),
+          );
+        },
+        child:
+            isSelected
+                ? Center(
+                  child: Text(label, key: ValueKey(label)),
+                ) // Unique key to trigger animation
+                : const SizedBox(),
       ),
       onPressed: onPressed,
     );

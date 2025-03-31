@@ -14,6 +14,13 @@ class SettingsProvider extends ChangeNotifier {
 
   late final Box<Settings> _settingsBoxFuture;
   bool isLoading = true;
+  bool _isVisible = true;
+
+  bool get isVisible => _isVisible;
+  void setIsVisible(bool isVisible) {
+    _isVisible = isVisible;
+    notifyListeners();
+  }
 
   Settings get settings => _settings;
   ThemeMode get themeMode => _settings.themeModeAsFlutterThemeMode;
