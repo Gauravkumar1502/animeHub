@@ -1,4 +1,3 @@
-import 'package:animexhub/models/ani_pic.dart';
 import 'package:animexhub/views/screens/favorites.dart';
 import 'package:animexhub/views/screens/home.dart';
 import 'package:animexhub/views/screens/image_detail.dart';
