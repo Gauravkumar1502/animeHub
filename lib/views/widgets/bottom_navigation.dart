@@ -1,4 +1,4 @@
-import 'package:animexhub/widgets/custom_bottom_nav_icon_button.dart';
+import 'package:animexhub/views/widgets/custom_bottom_nav_icon_button.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatelessWidget {

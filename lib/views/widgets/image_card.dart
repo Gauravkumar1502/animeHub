@@ -75,50 +75,42 @@ class ImageCard extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight:
-                            MediaQuery.of(context).size.height * 0.3,
-                        maxHeight:
-                            MediaQuery.of(context).size.height * 0.8,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.network(
-                          aniPic.url,
-                          errorBuilder: (context, error, stackTrace) {
-                            return SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height *
-                                  0.3,
-                              child: Center(
-                                child: const Text(
-                                  "Failed to load image",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        aniPic.url,
+                        errorBuilder: (context, error, stackTrace) {
+                          return SizedBox(
+                            height:
+                                MediaQuery.of(context).size.height *
+                                0.3,
+                            child: Center(
+                              child: const Text(
+                                "Failed to load image",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                            );
-                          },
-                          fit: BoxFit.cover,
-                          loadingBuilder: (
-                            context,
-                            child,
-                            loadingProgress,
-                          ) {
-                            return loadingProgress == null
-                                ? child
-                                : LoadingAnimationWidget.progressiveDots(
-                                  color:
-                                      Theme.of(
-                                        context,
-                                      ).colorScheme.secondary,
-                                  size: 32,
-                                );
-                          },
-                        ),
+                            ),
+                          );
+                        },
+                        fit: BoxFit.cover,
+                        loadingBuilder: (
+                          context,
+                          child,
+                          loadingProgress,
+                        ) {
+                          return loadingProgress == null
+                              ? child
+                              : LoadingAnimationWidget.progressiveDots(
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                size: 32,
+                              );
+                        },
                       ),
                     ),
                     Padding(

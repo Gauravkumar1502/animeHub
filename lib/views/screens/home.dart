@@ -1,6 +1,6 @@
 import 'package:animexhub/providers/settings_provider.dart';
-import 'package:animexhub/widgets/bottom_navigation.dart';
-import 'package:animexhub/widgets/filter_modal.dart';
+import 'package:animexhub/views/widgets/bottom_navigation.dart';
+import 'package:animexhub/views/widgets/filter_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';

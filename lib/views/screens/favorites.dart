@@ -1,6 +1,6 @@
 import 'package:animexhub/providers/anipic_provider.dart';
 import 'package:animexhub/providers/settings_provider.dart';
-import 'package:animexhub/widgets/image_card.dart';
+import 'package:animexhub/views/widgets/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';

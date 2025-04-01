@@ -1,6 +1,6 @@
 import 'package:animexhub/providers/anipic_provider.dart';
 import 'package:animexhub/providers/settings_provider.dart';
-import 'package:animexhub/widgets/image_card.dart';
+import 'package:animexhub/views/widgets/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -71,6 +71,7 @@ class _ImageListState extends State<ImageList> {
               Expanded(
                 child: ListView.builder(
                   controller: _scrollController,
+                  physics: const PageScrollPhysics(),
                   itemCount: animePicsProvider.anipics.length,
                   itemBuilder: (context, index) {
                     return ImageCard(

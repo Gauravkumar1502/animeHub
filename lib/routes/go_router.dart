@@ -1,9 +1,9 @@
 import 'package:animexhub/models/ani_pic.dart';
-import 'package:animexhub/screens/favorites.dart';
-import 'package:animexhub/screens/home.dart';
-import 'package:animexhub/screens/image_detail.dart';
-import 'package:animexhub/screens/settings.dart';
-import 'package:animexhub/widgets/list.dart';
+import 'package:animexhub/views/screens/favorites.dart';
+import 'package:animexhub/views/screens/home.dart';
+import 'package:animexhub/views/screens/image_detail.dart';
+import 'package:animexhub/views/screens/settings.dart';
+import 'package:animexhub/views/widgets/list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
