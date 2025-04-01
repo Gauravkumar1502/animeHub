@@ -71,7 +71,6 @@ class _ImageListState extends State<ImageList> {
               Expanded(
                 child: ListView.builder(
                   controller: _scrollController,
-                  physics: const PageScrollPhysics(),
                   itemCount: animePicsProvider.anipics.length,
                   itemBuilder: (context, index) {
                     return ImageCard(
