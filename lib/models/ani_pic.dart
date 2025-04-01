@@ -52,4 +52,23 @@ class AniPic {
   String toString() {
     return 'AniPic{id: $id, url: $url, rating: $rating, tags: $tags}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is AniPic &&
+        other.id == id &&
+        other.url == url &&
+        other.rating == rating &&
+        listEquals(other.tags, tags);
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        url.hashCode ^
+        rating.hashCode ^
+        tags.hashCode;
+  }
 }
