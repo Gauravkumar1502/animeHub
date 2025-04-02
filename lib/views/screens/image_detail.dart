@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:animexhub/providers/anipic_provider.dart';
 import 'package:animexhub/utils/dio_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -199,7 +201,73 @@ class ImageDetail extends StatelessWidget {
                       /// Download button
                       Expanded(
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            debugPrint(
+                              'Downloading image... ${aniPic.url}',
+                            );
+                            // show loading dialog
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              barrierLabel: 'Loading',
+                              builder: (context) {
+                                return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Downloading image...',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    CircularProgressIndicator(),
+                                  ],
+                                );
+                              },
+                            );
+                            bool
+                            isSaved = await FileUtils.saveFileToGallery(
+                              aniPic.url,
+                              '${aniPic.id.toString()}_${DateTime.now().millisecondsSinceEpoch}.${aniPic.url.split('.').last}',
+                            );
+                            // close loading dialog
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                            if (isSaved) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Image downloaded successfully',
+                                    ),
+                                    duration: Duration(seconds: 2),
+                                    behavior:
+                                        SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
+                            } else {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Error downloading image',
+                                    ),
+                                    duration: Duration(seconds: 2),
+                                    behavior:
+                                        SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
+                            }
+                          },
                           icon: const Icon(Icons.download),
                           tooltip: 'Download',
                         ),
@@ -208,7 +276,59 @@ class ImageDetail extends StatelessWidget {
                       /// Set as wallpaper button
                       Expanded(
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            showModalBottomSheet(
+                              isScrollControlled: false,
+                              context: context,
+                              builder: (context) {
+                                return SizedBox(
+                                  width: double.infinity,
+                                  height: 200,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(
+                                      16.0,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(
+                                              context,
+                                            ).pop();
+                                          },
+                                          child: const Text(
+                                            "Set as Home Screen",
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(
+                                              context,
+                                            ).pop();
+                                          },
+                                          child: const Text(
+                                            "Set as Lock Screen",
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(
+                                              context,
+                                            ).pop();
+                                          },
+                                          child: const Text(
+                                            "Set as Both",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
                           icon: const Icon(Icons.wallpaper),
                           tooltip: 'Set as wallpaper',
                         ),
